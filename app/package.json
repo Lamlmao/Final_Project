@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "@types/jasmine": "^4.3.5",
+    "@types/jasminewd2": "^2.0.10",
+    "@types/node": "^20.5.9",
+    "jasmine-spec-reporter": "^7.0.0",
+    "protractor": "^7.0.0",
+    "ts-node": "^10.9.1"
+  }
+}

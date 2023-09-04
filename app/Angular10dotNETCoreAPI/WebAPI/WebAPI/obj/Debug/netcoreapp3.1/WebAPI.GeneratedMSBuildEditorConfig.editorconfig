@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = WebAPI
+build_property.ProjectDir = /home/hlam/Desktop/FPT/K8S/final_project/app/Angular10dotNETCoreAPI/WebAPI/WebAPI/

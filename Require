@@ -1,0 +1,12 @@
+Tạo 1 cụm K8s gồm những yêu cầu sau:
+
+1. Deploy 3  pod chạy dịch vụ Front-End (ReactJs,VueJs,Angular,...)
+2. Deploy 3  pod chạy dịch vụ Backt-End (C#,Java,Golang,Python,...)
+3. Image của FE và BE phải được build từ Dockerfile và push lên Dockerhub, không sử dụng image mặc định trên docker registry.
+4. Các pod sẽ được autoscale theo thông số CPU
+5. Deploy database (mysql,mongodb,...) (có thể triển khai theo mô hình HA (Dùng helm hoặc statefulset (sẽ được cộng điểm))) hoặc mô hình standalone
+6. Config Front-end gọi tới Back-end và Back-end gọi tới database
+7. Các setting liên quan đến credential để trong Secret.
+8. Dùng Daemonset triển khai elasticsearch (image fluentd-elasticsearch). Deploy ingress sao cho từ internSet có thể gọi được vào dịch vụ chạy Front-End theo DNS
+
+(Có thể configure HTTPS (điểm cộng)). Nếu không có domain name thì dùng service type Nodeport hoặc Loadbalancer (không được điểm tối đa).xxxxxxxxxxx`
