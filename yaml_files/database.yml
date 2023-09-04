@@ -1,1 +1,19 @@
 # statleful set + headlesservice
+apiVersion: v1
+kind: Service
+metadata:
+  name: productdb-svc
+  namespace: default
+spec:
+  selector:
+    app: mssql-sales
+  sessionAffinity: None
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+  ports:
+  - name: db-port
+    protocol: TCP
+    port: 1433
+    targetPort: 1433
+    

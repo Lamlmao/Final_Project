@@ -1,1 +1,60 @@
 # deployment for back end + service for back end 
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  frontend-deploy
+  namespace: default
+  labels:
+    app:  frontend-deploy
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app:  frontend
+    spec:
+      containers:
+      - name:  webclient
+        image:  hungvu034/webclient:v2
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort:  80
+          name:  http
+  
+--- 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: webclient-svc
+  namespace: default
+spec:
+  selector:
+    app: frontend
+  type: ClusterIP
+  sessionAffinity: None
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 80
+    # If you set the `spec.type` field to `NodePort` and you want a specific port number,
+    # you can specify a value in the `spec.ports[*].nodePort` field.

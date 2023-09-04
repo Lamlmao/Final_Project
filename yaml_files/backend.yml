@@ -1,1 +1,62 @@
 # deployment for back end + service for back end 
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  webapi-deploy
+  namespace: default
+  labels:
+    app:  webapi-deploy
+spec:
+  selector:
+    matchLabels:
+      app: webapi
+  replicas: 3
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app:  webapi
+    spec:
+      containers:
+      - name:  webapi
+        image:  hungvu034/webapi:v2
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 100m
+            memory: 100Mi
+     
+        env:
+        - name: "ConnectionString"
+          value: "Server=productdb-svc,1433;Database=ProductDb;User Id=sa;Password=Password789;TrustServerCertificate=True"
+        ports:
+        - containerPort:  80
+          name:  http
+
+--- 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapi-svc
+  namespace: default
+spec:
+  selector:
+    app: webapi
+  type: ClusterIP
+  sessionAffinity: None
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 80

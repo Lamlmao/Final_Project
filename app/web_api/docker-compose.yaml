@@ -1,0 +1,12 @@
+version: "3.0.8"
+
+services:
+  xtlab-mssql:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    container_name: productdb         # tên container
+    restart: always
+    environment:
+      SA_PASSWORD: Password123          #Thiết lập password
+      ACCEPT_EULA: Y
+    ports:
+      - "1433:1433"                     # cổng kết nối
