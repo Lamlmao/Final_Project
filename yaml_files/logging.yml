@@ -1,1 +1,19 @@
-#daemonset for elastic search
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: elasticsearch
+spec:
+  selector:
+    matchLabels:
+      app: elasticsearch
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      containers:
+      - name: elasticsearch
+        image: elasticsearch
+        ports:
+        - containerPort: 9200
+        - containerPort: 9300 

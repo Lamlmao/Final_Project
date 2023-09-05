@@ -35,9 +35,9 @@ spec:
      
         env:
         - name: "ConnectionString"
-          value: "Server=productdb-svc,1433;Database=ProductDb;User Id=sa;Password=Password789;TrustServerCertificate=True"
+          value: "Server=mssql-sales-0,1433;Database=ProductDb;User Id=sa;Password=Password123;TrustServerCertificate=True"
         ports:
-        - containerPort:  80
+        - containerPort: 80
           name:  http
 
 --- 
@@ -51,10 +51,6 @@ spec:
   selector:
     app: webapi
   type: ClusterIP
-  sessionAffinity: None
-  sessionAffinityConfig:
-    clientIP:
-      timeoutSeconds: 10800
   ports:
   - name: http
     protocol: TCP
